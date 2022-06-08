@@ -1,3 +1,3 @@
 variable "postfix" {
-    type = string
+  type = string
 }

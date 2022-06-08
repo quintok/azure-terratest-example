@@ -1,4 +1,5 @@
 provider "azurerm" {
+  use_oidc = true
   features {}
 }
 
@@ -15,7 +16,7 @@ module "network" {
   subnet_names        = ["subnet1", "subnet2", "subnet3"]
 
   subnet_service_endpoints = {
-    "subnet1" : ["Microsoft.Sql"], 
+    "subnet1" : ["Microsoft.Sql"],
     "subnet2" : ["Microsoft.Sql"],
     "subnet3" : ["Microsoft.Sql"]
   }
