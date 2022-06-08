@@ -2,6 +2,8 @@ package test
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"os"
 	"testing"
 
@@ -11,6 +13,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestTerraformServiceEndpoints(t *testing.T) {
@@ -32,7 +35,7 @@ func TestTerraformServiceEndpoints(t *testing.T) {
 	// 3. Run
 
 	client := compute.NewVirtualMachineRunCommandsClient(subscriptionId)
-	client.CreateOrUpdate(context.Background(), "examplerg", "mycomputer2", "ifconfig", compute.VirtualMachineRunCommand{
+	future, err := client.CreateOrUpdate(context.Background(), "examplerg", "mycomputer2", "ifconfig", compute.VirtualMachineRunCommand{
 		VirtualMachineRunCommandProperties: &compute.VirtualMachineRunCommandProperties{
 			AsyncExecution: to.BoolPtr(false),
 			Source: &compute.VirtualMachineRunCommandScriptSource{
@@ -40,6 +43,21 @@ func TestTerraformServiceEndpoints(t *testing.T) {
 			},
 		},
 	})
+	if err != nil {
+		require.NoError(t, err)
+	}
+
+	err = future.WaitForCompletionRef(context.Background(), client.Client)
+	if err != nil {
+		require.NoError(t, err)
+	}
+
+	res, err := future.Result(client)
+	if err != nil {
+		require.NoError(t, err)
+	}
+	fmt.Println(json.Marshal(res))
+
 }
 
 func configureTerraformOptions(t *testing.T) *terraform.Options {
