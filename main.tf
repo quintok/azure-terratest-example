@@ -109,6 +109,8 @@ resource "azurerm_subnet_network_security_group_association" "private-subnet" {
   subnet_id                 = azurerm_subnet.private.id
   network_security_group_id = azurerm_network_security_group.private-subnet.id
 
+  // https://github.com/hashicorp/terraform-provider-azurerm/issues/14434
+  // API doesn't understand the correlation
   depends_on = [
     azurerm_network_security_rule.block-internet-outbound,
     azurerm_network_security_rule.block-internet-inbound
