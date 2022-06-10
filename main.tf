@@ -108,4 +108,9 @@ resource "azurerm_network_security_rule" "block-internet-outbound" {
 resource "azurerm_subnet_network_security_group_association" "private-subnet" {
   subnet_id                 = azurerm_subnet.private.id
   network_security_group_id = azurerm_network_security_group.private-subnet.id
+
+  depends_on = [
+    azurerm_network_security_rule.block-internet-outbound,
+    azurerm_network_security_rule.block-internet-inbound
+  ]
 }
