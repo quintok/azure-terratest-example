@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.0.0
-	github.com/gruntwork-io/terratest v0.40.15
+	github.com/gruntwork-io/terratest v0.40.17
 )
 
 require (
