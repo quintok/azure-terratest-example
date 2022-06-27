@@ -68,11 +68,11 @@ func TestNATConfiguration(t *testing.T) {
 	})
 
 	test_structure.RunTestStage(t, "validate", func() {
-		validateNATIsWorking(t, workingDir)
+		ValidateNATIsWorking(t, workingDir)
 	})
 }
 
-func validateNATIsWorking(t *testing.T, workingDir string) {
+func ValidateNATIsWorking(t *testing.T, workingDir string) {
 	ctx := context.Background()
 
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
