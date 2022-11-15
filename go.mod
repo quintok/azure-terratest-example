@@ -3,7 +3,7 @@ module github.com/quintok/azure-terratest-example
 go 1.18
 
 require (
-	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.1.4
+	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.2.0
 	github.com/gruntwork-io/terratest v0.41.0
 )
 
